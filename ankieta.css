@@ -1,0 +1,13 @@
+.slot {
+    background-color: lightskyblue;
+    border: 1px solid rgb(250, 207, 143);
+    border-radius: 8px;
+    margin: 15px 0px;
+    padding: 5px;
+}
+.slot p {
+    margin: 0;
+}
+.slot .session {
+    margin-top: 15px;
+}

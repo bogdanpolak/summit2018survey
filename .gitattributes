@@ -1,0 +1,3 @@
+# configuration for repository files (lunguist = https://github.com/github/linguist)
+*.html linguist-vendored=true
+*.css linguist-vendored=true
