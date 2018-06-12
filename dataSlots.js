@@ -1,4 +1,4 @@
-delphiDeveloperSummit2018Slots = [{
+const SlotsDelphiDeveloperSummit2018 = [{
 	id:'wt1030', date:'2018-06-19T10:00+02:00', duration:75,
 	sessions: [
 		{track:0, speaker:'Marco Cantu', subject:'Delphi: Whats New and Whats Coming'}]

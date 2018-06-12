@@ -1,14 +1,33 @@
-surveyResults = [
-	{session:'wt1030', track:0, rating:5},
-	{session:'sr1000', track:2, rating:3}, 
-	{session:'sr1130', track:2, rating:6}
-];
-
-function getSessionRating (session, track, rating) {
-	res = surveyResults.find(res => (res.session===session)&&(res.track===track));
-	if (res)
-		return res.rating;
+const SurveyResults = {
+	serialCode: '',
+	data: [],
+	getRating: function (session, track) {
+		res = this.data.find(res => (res.session===session)&&(res.track===track));
+		if (res)
+			return res.rating
+		else
+			return null;
+	},
+	loadData: function (serialCode) {
+		if (serialCode === '000-000') {
+			this.data = [
+				{ session: 'wt1030', track: 0, rating: 6 },
+				{ session: 'wt1215', track: 1, rating: 5 },
+				{ session: 'wt1445', track: 1, rating: 6 },
+				{ session: 'sr1000', track: 1, rating: 5 },
+				{ session: 'sr1130', track: 1, rating: 6 },
+				{ session: 'sr1300', track: 2, rating: 4 }];
+		} else {
+			this.data = [
+				{ session: 'wt1030', track: 0, rating: 5 },
+				{ session: 'sr1000', track: 2, rating: 3 },
+				{ session: 'sr1130', track: 2, rating: 6 }];
+		}
+		this.serialCode = serialCode;
+		return true;
+	}
 }
+
 function generateSlotInfo (slot) {
 	const slotInfoDiv = document.createElement('div');
 	slotInfoDiv.classList.add('col-md-2', 'text-center');
@@ -31,18 +50,13 @@ function generateSlotSessions (slotID, session, columnStyle) {
 		+'</p>'
 	const btnGroupDiv = document.createElement('div');
 	btnGroupDiv.classList.add('btn-group', 'mr-2');
-	btnGroupDiv.setAttribute('conferece-slot',slotID);
-	btnGroupDiv.setAttribute('conferece-track',session.track);
+	btnGroupDiv.setAttribute('conference-slot',slotID);
+	btnGroupDiv.setAttribute('conference-track',session.track);
 	btnGroupDiv.setAttribute('role', 'group');
 	// btnGroupDiv.setAttribute('aria-label','session info');
-	html = '';
-	const rating = getSessionRating(slotID, session.track);
-	console.log (slotID, session.track, rating);
+	let html = '';
 	for (let i = 0; i <= 6; i++) {
-		if (i === rating)
-			html += '<button type="button" class="btn btn-outline-primary active">'+i+'</button>';
-		else
-			html += '<button type="button" class="btn btn-outline-primary">'+i+'</button>';
+		html += '<button type="button" class="btn btn-outline-primary">'+i+'</button>';
 	}
 	btnGroupDiv.innerHTML = html;
 	sessionDiv.appendChild (btnGroupDiv);
@@ -68,12 +82,13 @@ function generateSlot (surveyDiv, slot) {
 }
 function addOnClickEvents () {
 	$(".btn-group > .btn").click(function(){
-		const sessionName = this.parentElement.getAttribute("conferece-slot");
-		const trackNo = this.parentElement.getAttribute("conferece-track");
-		$('div[conferece-slot="'+sessionName+'"] > .btn').removeClass("active");
+		const sessionName = this.parentElement.getAttribute("conference-slot");
+		const trackNo = this.parentElement.getAttribute("conference-track");
+		$('div[conference-slot="'+sessionName+'"] > .btn').removeClass("active");
 		$(this).addClass("active");
 		const sessionRating = this.innerHTML;
-		console.log({session:sessionName,track:trackNo,rating:sessionRating});
+		const item = {session:sessionName,track:trackNo,rating:sessionRating};
+		console.log('session='+item.session+', track='+item.track+', rating='+item.rating);
 	});
 }
 function generateSurvey (id,slots) {
@@ -82,15 +97,31 @@ function generateSurvey (id,slots) {
 	addOnClickEvents();
 }
 
+function updateSlotsWithResults () {
+	$('.btn-group > .btn').removeClass('active');
+	SurveyResults.data.forEach ( res => {
+		$(".btn-group[conference-slot='"+res.session
+			+"'][conference-track="+res.track
+			+"] > .btn:contains("+res.rating
+			+")").addClass('active');
+	} );
+};
+
 function toggleDisplaySection (id) {
 	$('#'+id).toggle();
 }
 
 $( document ).ready( function() {
+	const sectionAuthorizID = 'login';
+	const sectionSurveyID = 'summit-survey'; 
 	function ShowAll () {
-		toggleDisplaySection ('login');  // hide login section 
-		toggleDisplaySection ('summit-survey');  // show survey section
-		generateSurvey('summit-survey',delphiDeveloperSummit2018Slots);
+		toggleDisplaySection (sectionAuthorizID);  // hide login section 
+		toggleDisplaySection (sectionSurveyID);  // show survey section
+		generateSurvey(sectionSurveyID,SlotsDelphiDeveloperSummit2018);
+		// const serialCode = '000-000';
+		const serialCode = 'ABCDE-FGHIJ';
+		SurveyResults.loadData (serialCode);
+		updateSlotsWithResults ();
 	}
 	ShowAll ();
 });
