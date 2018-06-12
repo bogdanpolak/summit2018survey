@@ -88,8 +88,8 @@ function toggleDisplaySection (id) {
 
 $( document ).ready( function() {
 	function ShowAll () {
-		toggleDisplaySection ('login');
-		toggleDisplaySection ('summit-survey');
+		toggleDisplaySection ('login');  // hide login section 
+		toggleDisplaySection ('summit-survey');  // show survey section
 		generateSurvey('summit-survey',delphiDeveloperSummit2018Slots);
 	}
 	ShowAll ();
