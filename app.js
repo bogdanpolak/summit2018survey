@@ -53,11 +53,10 @@ function generateSlotSessions (slotID, session, columnStyle) {
 	btnGroupDiv.setAttribute('conference-slot',slotID);
 	btnGroupDiv.setAttribute('conference-track',session.track);
 	btnGroupDiv.setAttribute('role', 'group');
-	// btnGroupDiv.setAttribute('aria-label','session info');
 	let html = '';
-	for (let i = 0; i <= 6; i++) {
-		html += '<button type="button" class="btn btn-outline-primary">'+i+'</button>';
-	}
+	[1, 2, 3, 4, 5, 6].forEach( i =>
+		html += '<button type="button" class="btn btn-outline-primary">'+i+'</button>'
+	);
 	btnGroupDiv.innerHTML = html;
 	sessionDiv.appendChild (btnGroupDiv);
 	return sessionDiv;
