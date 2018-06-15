@@ -113,8 +113,9 @@ function toggleDisplaySection (id) {
 
 let enableOnClick = true;
 
-function LoginOnClick() {
+function doAuthorize() {
 	if (enableOnClick) {
+		$('#btnAuth').toggleClass('btn-primary btn-outline-secondary');
 		enableOnClick = false;
 		const serialCode = $('#serial').val();;
 		const sectionAuthorizID = 'login';
@@ -128,16 +129,26 @@ function LoginOnClick() {
 				generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
 				updateSlotsWithResults ();
 				enableOnClick = true;
+				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
 			}, 
 			req=>{
 				console.log(req)
 				enableOnClick = true;
+				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
 			} 
 		);
 	}
 }
 
 $( document ).ready( function() {
+	$('#serial').keypress(function (event) {
+		if (event.which == 13) {
+			const serialCode = $('#serial').val();
+			if (serialCode !== '') {
+				doAuthorize();
+			}
+		}
+	});
 	/*
 	SurveyResults.mockSurveyDateInitilize ();
 	toggleDisplaySection ('summit-survey');  // show survey section
