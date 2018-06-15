@@ -111,23 +111,30 @@ function toggleDisplaySection (id) {
 	$('#'+id).toggle();
 }
 
+let enableOnClick = true;
+
 function LoginOnClick() {
-	const serialCode = $('#serial').val();;
-	const sectionAuthorizID = 'login';
-	const sectionSurveyID = 'summit-survey'; 
-	AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+serialCode,
-		obj=>{
-			SurveyResults.data = obj.data.results;
-			console.log(SurveyResults.data);
-			toggleDisplaySection (sectionAuthorizID);  // hide login section 
-			toggleDisplaySection (sectionSurveyID);  // show survey section
-			generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
-			updateSlotsWithResults ();
-		}, 
-		req=>{
-			console.log(req)
-		} 
-	);
+	if (enableOnClick) {
+		enableOnClick = false;
+		const serialCode = $('#serial').val();;
+		const sectionAuthorizID = 'login';
+		const sectionSurveyID = 'summit-survey'; 
+		AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+serialCode,
+			obj=>{
+				SurveyResults.data = obj.data.results;
+				console.log(SurveyResults.data);
+				toggleDisplaySection (sectionAuthorizID);  // hide login section 
+				toggleDisplaySection (sectionSurveyID);  // show survey section
+				generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
+				updateSlotsWithResults ();
+				enableOnClick = true;
+			}, 
+			req=>{
+				console.log(req)
+				enableOnClick = true;
+			} 
+		);
+	}
 }
 
 $( document ).ready( function() {
