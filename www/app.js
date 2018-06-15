@@ -8,22 +8,23 @@ const SurveyResults = {
 		else
 			return null;
 	},
-	loadData: function (serialCode) {
-		if (serialCode === '000-000') {
-			this.data = [
-				{ session: 'wt1030', track: 0, rating: 6 },
-				{ session: 'wt1215', track: 1, rating: 5 },
-				{ session: 'wt1445', track: 1, rating: 6 },
-				{ session: 'sr1000', track: 1, rating: 5 },
-				{ session: 'sr1130', track: 1, rating: 6 },
-				{ session: 'sr1300', track: 2, rating: 4 }];
-		} else {
-			this.data = [
-				{ session: 'wt1030', track: 0, rating: 5 },
-				{ session: 'sr1000', track: 2, rating: 3 },
-				{ session: 'sr1130', track: 2, rating: 6 }];
-		}
-		this.serialCode = serialCode;
+	fillMockSurvey1: function () {
+		this.serialCode === '000-000';
+		this.data = [
+			{ session: 'wt1030', track: 0, rating: 6 },
+			{ session: 'wt1215', track: 1, rating: 5 },
+			{ session: 'wt1445', track: 1, rating: 6 },
+			{ session: 'sr1000', track: 1, rating: 5 },
+			{ session: 'sr1130', track: 1, rating: 6 },
+			{ session: 'sr1300', track: 2, rating: 4 }];
+		return true;
+	},
+	fillMockSurvey2: function () {
+		this.serialCode === 'BBBBB-CCCCC';
+		this.data = [
+			{ session: 'wt1030', track: 0, rating: 5 },
+			{ session: 'sr1000', track: 2, rating: 3 },
+			{ session: 'sr1130', track: 2, rating: 6 }];
 		return true;
 	}
 }
@@ -113,15 +114,26 @@ function toggleDisplaySection (id) {
 $( document ).ready( function() {
 	const sectionAuthorizID = 'login';
 	const sectionSurveyID = 'summit-survey'; 
-	function ShowAll () {
-		toggleDisplaySection (sectionAuthorizID);  // hide login section 
-		toggleDisplaySection (sectionSurveyID);  // show survey section
-		generateSurvey(sectionSurveyID,SlotsDelphiDeveloperSummit2018);
-		// const serialCode = '000-000';
-		const serialCode = 'ABCDE-FGHIJ';
-		SurveyResults.loadData (serialCode);
-		updateSlotsWithResults ();
-	}
-	ShowAll ();
+	/*
+	toggleDisplaySection (sectionAuthorizID);  // hide login section 
+	toggleDisplaySection (sectionSurveyID);  // show survey section
+	generateSurvey(sectionSurveyID,SlotsDelphiDeveloperSummit2018);
+	SurveyResults.mockSurveyDateInitilize ();
+	*/
+	// const serialCode = '000-000';
+	const serialCode = '1-1';
+	AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+serialCode,
+		obj=>{
+			SurveyResults.data = obj.data.results;
+			console.log(SurveyResults.data);
+			toggleDisplaySection (sectionAuthorizID);  // hide login section 
+			toggleDisplaySection (sectionSurveyID);  // show survey section
+			generateSurvey(sectionSurveyID,SlotsDelphiDeveloperSummit2018);
+			updateSlotsWithResults ();
+		}, 
+		req=>{
+			console.log(req)
+		} 
+	);
 });
 
