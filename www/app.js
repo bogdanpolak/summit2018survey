@@ -1,8 +1,8 @@
 const SurveyResults = {
 	serialCode: '',
 	data: [],
-	getRating: function (session, track) {
-		res = this.data.find(res => (res.session===session)&&(res.track===track));
+	getRating: function (slot, track) {
+		res = this.data.find(res => (res.slot===slot)&&(res.track===track));
 		if (res)
 			return res.rating
 		else
@@ -11,20 +11,20 @@ const SurveyResults = {
 	fillMockSurvey1: function () {
 		this.serialCode === '000-000';
 		this.data = [
-			{ session: 'wt1030', track: 0, rating: 6 },
-			{ session: 'wt1215', track: 1, rating: 5 },
-			{ session: 'wt1445', track: 1, rating: 6 },
-			{ session: 'sr1000', track: 1, rating: 5 },
-			{ session: 'sr1130', track: 1, rating: 6 },
-			{ session: 'sr1300', track: 2, rating: 4 }];
+			{ slot: 'wt1030', track: 0, rating: 6 },
+			{ slot: 'wt1215', track: 1, rating: 5 },
+			{ slot: 'wt1445', track: 1, rating: 6 },
+			{ slot: 'sr1000', track: 1, rating: 5 },
+			{ slot: 'sr1130', track: 1, rating: 6 },
+			{ slot: 'sr1300', track: 2, rating: 4 }];
 		return true;
 	},
 	fillMockSurvey2: function () {
 		this.serialCode === 'BBBBB-CCCCC';
 		this.data = [
-			{ session: 'wt1030', track: 0, rating: 5 },
-			{ session: 'sr1000', track: 2, rating: 3 },
-			{ session: 'sr1130', track: 2, rating: 6 }];
+			{ slot: 'wt1030', track: 0, rating: 5 },
+			{ slot: 'sr1000', track: 2, rating: 3 },
+			{ slot: 'sr1130', track: 2, rating: 6 }];
 		return true;
 	}
 }
@@ -82,13 +82,13 @@ function generateSlot (surveyDiv, slot) {
 }
 function addOnClickEvents () {
 	$(".btn-group > .btn").click(function(){
-		const sessionName = this.parentElement.getAttribute("conference-slot");
+		const slotName = this.parentElement.getAttribute("conference-slot");
 		const trackNo = this.parentElement.getAttribute("conference-track");
-		$('div[conference-slot="'+sessionName+'"] > .btn').removeClass("active");
+		$('div[conference-slot="'+slotName+'"] > .btn').removeClass("active");
 		$(this).addClass("active");
 		const sessionRating = this.innerHTML;
-		const item = {session:sessionName,track:trackNo,rating:sessionRating};
-		console.log('session='+item.session+', track='+item.track+', rating='+item.rating);
+		const item = {slot:slotName,track:trackNo,rating:sessionRating};
+		console.log('slot='+item.slot+', track='+item.track+', rating='+item.rating);
 	});
 }
 function generateSurvey (id,slots) {
@@ -100,7 +100,7 @@ function generateSurvey (id,slots) {
 function updateSlotsWithResults () {
 	$('.btn-group > .btn').removeClass('active');
 	SurveyResults.data.forEach ( res => {
-		$(".btn-group[conference-slot='"+res.session
+		$(".btn-group[conference-slot='"+res.slot
 			+"'][conference-track="+res.track
 			+"] > .btn:contains("+res.rating
 			+")").addClass('active');
