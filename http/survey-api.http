@@ -1,0 +1,22 @@
+### Get survey info
+GET http://delphi.pl/zlot/zlot2018/api/survey/1-1
+
+### Update / Insert session wt1030 rating
+POST http://delphi.pl/zlot/zlot2018/api/survey/1-1 HTTP/1.1
+content-type: application/json
+
+{
+    "slot": "wt1030",
+    "track": 0,
+    "rating": 6
+}
+
+### Update / Insert session wt1215 rating
+POST http://delphi.pl/zlot/zlot2018/api/survey/1-1 HTTP/1.1
+content-type: application/json
+
+{
+    "slot": "wt1215",
+    "track": 2,
+    "rating": 1
+}
