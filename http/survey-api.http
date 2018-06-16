@@ -23,9 +23,17 @@ content-type: application/json
     "track": 2,
     "rating": 1
 }
-### Invalid authorization in POST
+
+### Invalid authorization in POST 
 POST http://delphi.pl/zlot/zlot2018/api/survey/999-999 HTTP/1.1
 content-type: application/json
 
 {"slot": "wt1030", "track": 0, "rating": 6}
+
+### Invalid session (slot, track) in POST 
+# slots: wt1030 wt1215 wt1445 sr1000 sr1130 sr1300
+POST http://delphi.pl/zlot/zlot2018/api/survey/1-1 HTTP/1.1
+content-type: application/json
+
+{"slot": "wt1445", "track": 3, "rating": 3}
 
