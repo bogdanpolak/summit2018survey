@@ -113,6 +113,15 @@ function toggleDisplaySection (id) {
 
 let enableOnClick = true;
 
+function getAPIResponseErrorMessage(req){
+	try {
+		response = JSON.parse(req.responseText);
+		return response.message;
+	} catch (e) {
+		return "Unrecognized API error. See console log for more details";
+	}
+};
+
 function doAuthorize() {
 	if (enableOnClick) {
 		$('#btnAuth').toggleClass('btn-primary btn-outline-secondary');
@@ -132,7 +141,13 @@ function doAuthorize() {
 				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
 			}, 
 			req=>{
-				console.log(req)
+				// invalid serial number
+				if (req.status === 401) {
+					$('#serialInvalidModal').modal()
+				} else {
+					console.log(req);
+					const msg = getAPIResponseErrorMessage(req);
+				}
 				enableOnClick = true;
 				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
 			} 
