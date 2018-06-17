@@ -1,28 +1,20 @@
 ### Get survey info
 GET http://delphi.pl/zlot/zlot2018/api/survey/1-1
 
-### Invalid authorization in GET
-GET http://delphi.pl/zlot/zlot2018/api/survey/999-999
-
 ### Update / Insert session wt1030 rating
 POST http://delphi.pl/zlot/zlot2018/api/survey/1-1 HTTP/1.1
 content-type: application/json
 
-{
-    "slot": "wt1030",
-    "track": 0,
-    "rating": 6
-}
+{ "slot": "wt1030", "track": 0, "rating": 6 }
 
 ### Update / Insert session wt1215 rating
 POST http://delphi.pl/zlot/zlot2018/api/survey/1-1 HTTP/1.1
 content-type: application/json
 
-{
-    "slot": "wt1215",
-    "track": 2,
-    "rating": 1
-}
+{ "slot": "wt1215", "track": 2, "rating": 1 }
+
+### Invalid authorization in GET
+GET http://delphi.pl/zlot/zlot2018/api/survey/999-999
 
 ### Invalid authorization in POST 
 POST http://delphi.pl/zlot/zlot2018/api/survey/999-999 HTTP/1.1
@@ -35,5 +27,10 @@ content-type: application/json
 POST http://delphi.pl/zlot/zlot2018/api/survey/1-1 HTTP/1.1
 content-type: application/json
 
-{"slot": "wt1445", "track": 3, "rating": 3}
+{"slot": "wt1300", "track": 2, "rating": 7}
 
+### Invalid session (slot, track) in POST 
+POST http://delphi.pl/zlot/zlot2018/api/survey/1-1 HTTP/1.1
+content-type: application/json
+
+{"slot": "sr0900", "track": 1, "rating": 1}
