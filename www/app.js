@@ -1,4 +1,4 @@
-const SurveyResults = {
+const SurveyData = {
 	serialCode: '',
 	data: [],
 	getRating: function (slot, track) {
@@ -28,6 +28,7 @@ const SurveyResults = {
 		return true;
 	}
 }
+var GlobalSerialCode;
 
 function generateSlotInfo (slot) {
 	const slotInfoDiv = document.createElement('div');
@@ -88,7 +89,12 @@ function addOnClickEvents () {
 		$(this).addClass("active");
 		const sessionRating = this.innerHTML;
 		const item = {slot:slotName,track:trackNo,rating:sessionRating};
-		console.log('slot='+item.slot+', track='+item.track+', rating='+item.rating);
+		AjaxHttpPost('http://delphi.pl/zlot/zlot2018/api/survey/'+SurveyData.serialCode,
+			item,
+			resp=>console.log(resp),
+			(status,resp)=>console.log(status,resp)
+		);
+		// console.log('slot='+item.slot+', track='+item.track+', rating='+item.rating);
 	});
 }
 function generateSurvey (id,slots) {
@@ -99,7 +105,7 @@ function generateSurvey (id,slots) {
 
 function updateSlotsWithResults () {
 	$('.btn-group > .btn').removeClass('active');
-	SurveyResults.data.forEach ( res => {
+	SurveyData.data.forEach ( res => {
 		$(".btn-group[conference-slot='"+res.slot
 			+"'][conference-track="+res.track
 			+"] > .btn:contains("+res.rating
@@ -113,9 +119,9 @@ function toggleDisplaySection (id) {
 
 let enableOnClick = true;
 
-function getAPIResponseErrorMessage(req){
+function getAPIResponseErrorMessage(responseText){
 	try {
-		response = JSON.parse(req.responseText);
+		response = JSON.parse(responseText);
 		return response.message;
 	} catch (e) {
 		return "Unrecognized API error. See console log for more details";
@@ -126,13 +132,12 @@ function doAuthorize() {
 	if (enableOnClick) {
 		$('#btnAuth').toggleClass('btn-primary btn-outline-secondary');
 		enableOnClick = false;
-		const serialCode = $('#serial').val();;
 		const sectionAuthorizID = 'login';
 		const sectionSurveyID = 'summit-survey'; 
-		AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+serialCode,
+		AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+SurveyData.serialCode,
 			obj=>{
-				SurveyResults.data = obj.data.results;
-				console.log(SurveyResults.data);
+				SurveyData.data = obj.data.results;
+				// console.log(SurveyData.data);
 				toggleDisplaySection (sectionAuthorizID);  // hide login section 
 				toggleDisplaySection (sectionSurveyID);  // show survey section
 				generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
@@ -140,13 +145,13 @@ function doAuthorize() {
 				enableOnClick = true;
 				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
 			}, 
-			req=>{
+			(status,responseText)=>{
 				// invalid serial number
-				if (req.status === 401) {
+				if (status === 401) {
 					$('#serialInvalidModal').modal()
 				} else {
-					console.log(req);
-					const msg = getAPIResponseErrorMessage(req);
+					console.log('status:'+status, responseText);
+					const msg = getAPIResponseErrorMessage(responseText);
 				}
 				enableOnClick = true;
 				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
@@ -160,12 +165,13 @@ $( document ).ready( function() {
 		if (event.which == 13) {
 			const serialCode = $('#serial').val();
 			if (serialCode !== '') {
+				SurveyData.serialCode = serialCode;
 				doAuthorize();
 			}
 		}
 	});
 	/*
-	SurveyResults.mockSurveyDateInitilize ();
+	SurveyData.mockSurveyDateInitilize ();
 	toggleDisplaySection ('summit-survey');  // show survey section
 	generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
 	updateSlotsWithResults ();
