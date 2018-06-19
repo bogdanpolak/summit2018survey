@@ -1,6 +1,25 @@
+.survey-header {
+    margin-bottom: 0;
+}
+.survey-header h1 {
+    font-size: 1.4em;
+    margin: 0;
+    text-align: center;
+    
+}
+.survey-header h2 {
+    font-size: 1em;
+    margin: 0;
+    text-align: center;
+    color: rgb(180, 180, 180);
+}
+.session .session-info {
+    margin-top: 15px;
+    margin-bottom: 0;
+}
 .slot {
-    background-color: lightskyblue;
-    border: 1px solid rgb(250, 207, 143);
+    background-color: rgb(221, 242, 255);
+    border: 1px solid rgb(183, 122, 245);
     border-radius: 8px;
     margin: 15px 0px;
     padding: 5px;

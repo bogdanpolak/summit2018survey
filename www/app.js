@@ -30,6 +30,21 @@ const SurveyData = {
 }
 var GlobalSerialCode;
 
+function generateSurveHeader (surveyDiv) {
+	const slotDiv = document.createElement('div');
+	slotDiv.classList.add('row', 'survey-header');
+	// append h1 with participant first and last name
+	const nameHeader = document.createElement('h1');
+	nameHeader.classList.add('col-md-12');
+	nameHeader.innerHTML = SurveyData.firstName+' '+SurveyData.lastName;
+	slotDiv.appendChild(nameHeader);
+	// append h2 with participant comapny
+	const companyHeader = document.createElement('h2');
+	companyHeader.classList.add('col-md-12');
+	companyHeader.innerHTML = SurveyData.company;
+	slotDiv.appendChild(companyHeader);
+	surveyDiv.appendChild(slotDiv);
+}
 function generateSlotInfo (slot) {
 	const slotInfoDiv = document.createElement('div');
 	slotInfoDiv.classList.add('col-md-2', 'text-center');
@@ -47,9 +62,11 @@ function generateSlotInfo (slot) {
 function generateSlotSessions (slotID, session, columnStyle) {
 	const sessionDiv = document.createElement('div');
 	sessionDiv.classList.add(columnStyle, 'session', 'text-center');
-	sessionDiv.innerHTML = '<p class="mt-2 mb-0">'
-		+session.subject+' - '+session.speaker
-		+'</p>'
+	const SessionInfoPar = document.createElement('p');
+	SessionInfoPar.classList.add('session-info');
+	SessionInfoPar.innerHTML = session.subject+' - '+session.speaker;
+	sessionDiv.appendChild (SessionInfoPar);
+	
 	const btnGroupDiv = document.createElement('div');
 	btnGroupDiv.classList.add('btn-group', 'mr-2');
 	btnGroupDiv.setAttribute('conference-slot',slotID);
@@ -99,6 +116,7 @@ function addOnClickEvents () {
 }
 function generateSurvey (id,slots) {
 	const surveyDiv = document.getElementById(id);
+	generateSurveHeader(surveyDiv);
 	slots.forEach( slot =>  generateSlot(surveyDiv, slot) );
 	addOnClickEvents();
 }
@@ -129,45 +147,47 @@ function getAPIResponseErrorMessage(responseText){
 };
 
 function doAuthorize() {
-	if (enableOnClick) {
-		$('#btnAuth').toggleClass('btn-primary btn-outline-secondary');
-		enableOnClick = false;
-		const sectionAuthorizID = 'login';
-		const sectionSurveyID = 'summit-survey'; 
-		AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+SurveyData.serialCode,
-			obj=>{
-				SurveyData.data = obj.data.results;
-				// console.log(SurveyData.data);
-				toggleDisplaySection (sectionAuthorizID);  // hide login section 
-				toggleDisplaySection (sectionSurveyID);  // show survey section
-				generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
-				updateSlotsWithResults ();
-				enableOnClick = true;
-				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
-			}, 
-			(status,responseText)=>{
-				// invalid serial number
-				if (status === 401) {
-					$('#serialInvalidModal').modal()
-				} else {
-					console.log('status:'+status, responseText);
-					const msg = getAPIResponseErrorMessage(responseText);
-				}
-				enableOnClick = true;
-				$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
-			} 
-		);
+	let serialCode = $('#serial').val();
+	if (serialCode !== '') {
+		SurveyData.serialCode = serialCode;
+		if (enableOnClick) {
+			$('#btnAuth').toggleClass('btn-primary btn-outline-secondary');
+			enableOnClick = false;
+			const sectionAuthorizID = 'login';
+			const sectionSurveyID = 'summit-survey'; 
+			AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+SurveyData.serialCode,
+				obj=>{
+					SurveyData.data = obj.data.results;
+					SurveyData.firstName = obj.data.firstName;
+					SurveyData.lastName = obj.data.lastName;
+					SurveyData.company = obj.data.company;
+					toggleDisplaySection (sectionAuthorizID);  // hide login section 
+					toggleDisplaySection (sectionSurveyID);  // show survey section
+					generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
+					updateSlotsWithResults ();
+					enableOnClick = true;
+					$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
+				}, 
+				(status,responseText)=>{
+					// invalid serial number
+					if (status === 401) {
+						$('#serialInvalidModal').modal()
+					} else {
+						console.log('status:'+status, responseText);
+						const msg = getAPIResponseErrorMessage(responseText);
+					}
+					enableOnClick = true;
+					$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
+				} 
+			);
+		}
 	}
 }
 
 $( document ).ready( function() {
 	$('#serial').keypress(function (event) {
 		if (event.which == 13) {
-			const serialCode = $('#serial').val();
-			if (serialCode !== '') {
-				SurveyData.serialCode = serialCode;
-				doAuthorize();
-			}
+			doAuthorize();
 		}
 	});
 	/*
