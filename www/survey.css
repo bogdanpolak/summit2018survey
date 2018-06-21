@@ -30,3 +30,23 @@
 .slot .session {
     margin-top: 15px;
 }
+
+.voting-results h1 {
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+.result-table .session {
+    margin: 5px;
+    padding: 10px;
+    border: 1px solid sienna;
+    border-radius: 5px;
+    background-color: rgb(220, 197, 186);
+}
+.result-table .session h3 {
+    font-size: 1.2em;
+    margin: 0px;
+}
+.result-table .session p {
+    font-size: 1em;
+    margin: 0px;
+}
