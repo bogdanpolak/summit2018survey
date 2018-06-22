@@ -1,0 +1,33 @@
+.main-content {
+	text-align: center;
+}
+
+.voting-results {
+	margin-top: 40px;
+}
+.voting-results h1 {
+	font-size: 1.7em;
+	margin: 5px 0px;
+}
+.voting-results h2 {
+	font-size: 1.4em;
+	margin: 5px 0px;
+}
+.voting-results h3 {
+	font-size: 1.1em;
+	margin: 5px 0px;
+}
+.session {
+	margin: 5px;
+	padding: 10px;
+	border: 1px solid goldenrod;
+	border-radius: 5px;
+	background-color: rgb(255, 250, 210);
+}
+.session h3 {
+	margin: 0;
+}
+.session p {
+	font-size: 1em;
+	margin: 0px;
+}
