@@ -1,7 +1,9 @@
 .main-content {
 	text-align: center;
 }
-
+#survey-results {
+	margin-bottom: 30px;
+}
 .voting-results {
 	margin-top: 40px;
 }
