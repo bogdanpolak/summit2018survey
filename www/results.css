@@ -10,10 +10,12 @@
 .voting-results h1 {
 	font-size: 1.7em;
 	margin: 5px 0px;
+	text-align: center;
 }
 .voting-results h2 {
 	font-size: 1.4em;
 	margin: 5px 0px;
+	text-align: center;
 }
 .voting-results h3 {
 	font-size: 1.1em;

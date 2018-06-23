@@ -20,6 +20,13 @@
 	</div>
 
 	<style>
+		@media (min-width: 768px) {
+			.row.equal {
+				display: flex;
+				flex-wrap: wrap;
+			}
+		}
+
 		.winners {
 			background-color: dimgray;
 		}
@@ -30,8 +37,10 @@
 		.platform {
 			padding: 20px;
 		}
-		.bg-gray {
+		.column {
 			padding: 30px 30px;
+		}
+		.place-box {
 			background-color: aliceblue;
 		}
 		.platform ul {
@@ -39,13 +48,53 @@
 		}
 	</style>
 
+	<section class="container">
+		<div class="row justify-content-center">
+			<h1 class="title">Najlepszy wykładowca społeczności</h1>
+		</div>
+		<div class="row equal">
+			<div class="col-sm-4">
+				<div class="place-box">
+					<h1>1</h1>
+					<h2 class="mt-0 mb-0">Mikołaj Milewski</h2>
+					<h3 class="mt-0 mb-2">Jak API'ć w Delphi?</h3>
+					<ul>
+						<li>Głosów: <strong>33</strong></li>
+						<li>Wynik: <strong>4,49</strong></li>
+						<li>Średnia: 4,51</li>
+					</ul>
+				</div>
+			</div>
+			<div class="bg-gray col-sm-4">
+				<h1>2</h1>
+				<h2 class="mt-0 mb-0">Mirosław Kardaś</h2>
+				<h3 class="mt-0 mb-2">Delphi dla elektronika</h3>
+				<ul>
+					<li>Głosów: <strong>29</strong></li>
+					<li>Wynik: <strong>3,89</strong></li>
+					<li>Średnia: 4,11</li>
+				</ul>
+			</div>
+			<div class="bg-gray col-sm-4">
+				<h1>3</h1>
+				<h2>Bogdan Polak</h2>
+				<h3>Migracja "dojrzałych" projektów VCL</h3>
+				<ul>
+					<li>Głosów: <strong>33</strong></li>
+					<li>Wynik: <strong>4,49</strong></li>
+					<li>Średnia: 4,51</li>
+				</ul>
+			</div>
+		
+		</div>
+	</section>
 	<div class="winners row justify-content-center">
 		<div class="col-md-10 text-center">
 			<h1 class="title">Najlepszy wykładowca społeczności</h1>
 			<div class="row">
 
-				<div class="platform col-md-4">
-					<div class="bg-gray">
+				<div class="platform col-md-4 ">
+					<div class="bg-gray card h-300">
 						<h1>1</h1>
 						<h2 class="mt-0 mb-0">Mikołaj Milewski</h2>
 						<h3 class="mt-0 mb-2">Jak API'ć w Delphi?</h3>
