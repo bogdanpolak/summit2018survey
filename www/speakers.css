@@ -1,88 +1,147 @@
+:root {
+	/* https://coolors.co/33202a-33658a-86bbd8-b37f21-f26419 */
+	--cDarkPurple: rgba(51, 32, 42, 1);
+	--TealBlue: rgba(51, 101, 138, 1);
+	--cDarkSkyBlue: rgba(134, 187, 216, 1);
+	--cUniversityOfCalGold: rgba(179, 128, 33, 1);
+	--cGiantsOrange: rgba(242, 100, 25, 1);
+}
+
 * {
-    box-sizing: border-box;
-    font-family: 'Lato', sans-serif;
+	box-sizing: border-box;
+	margin: 0px;
+	padding: 0px;
+	font-family: 'Lato', sans-serif;
 }
 
-.columns {
-    float: left;
-    width: 33.3%;
-    padding: 8px;
-    font-family: 'Lato', sans-serif;
+header {
+	padding: 30px 0px;
+	background-color: var(--cGiantsOrange);
+	text-align: center;
+	margin-bottom: 30px;
+}
+header img {
+	-webkit-filter: contrast(150%) hue-rotate(190deg);
+	filter: contrast(150%) hue-rotate(190deg);
+}
+header h1 {
+	font-size: 3em;
+	color: rgb(255, 218, 205);
+	margin-bottom: 10px;
+}
+header h2 {
+	color: white;
+	color: rgb(255, 218, 205);
+	font-size: 1.4em;
 }
 
-.speaker {
-    list-style-type: none;
-    border: 1px solid #eee;
-    margin: 0;
-    padding: 0;
-    -webkit-transition: 0.3s;
-    transition: 0.3s;
+section {
+	max-width: 1000px; 
+	margin: 0 auto;
+	text-align: center;
 }
 
-.speaker:hover {
-    box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+.podium {
+	margin-top: 30px;
+	clear: left;
 }
 
-.speaker li {
-    border-bottom: 1px solid #eee;
-    font-size: 20px;
-    padding: 10px;
-    text-align: center;
+.podium .category p {
+	font-size: 1.3em;
+	color: var(--cGiantsOrange);
 }
 
-.speaker .position {
-    background-color: #eee;
-    font-size: 35px;
-    border-bottom: 0px;
+.category h1 {
+	font-size: 2em;
 }
 
-.speaker .fullname {
-    background-color: #eee;
-    font-size: 25px;
-    padding: 0px 10px 20px 10px;
+.category .flag {
+	margin-left: 10px;
+}
+.category img.pl {padding:1px; border: 1px solid red;}
+.category img.eng {padding:1px; border: 1px solid darkblue;}
+
+.podium .column {
+	margin: 10px 0;
+	float: left;
+	width: 33.3%;
+	padding: 8px;
+	font-family: 'Lato', sans-serif;
 }
 
-.speaker .session {
-    font-size: 25px;
-    min-height: 80px;
+.column .speaker {
+	list-style-type: none;
+	border: 1px solid #eee;
+	margin: 0;
+	padding: 0;
+	-webkit-transition: 0.3s;
+	transition: 0.3s;
 }
 
-.speaker .calculations {
-    /* display: none; */
-    color: darkgrey;
-    font-size: 15px;
-    padding: 15px;
+.column .speaker:hover {
+	box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+
+.column .speaker li {
+	border-bottom: 1px solid #eee;
+	font-size: 20px;
+	padding: 10px;
+	text-align: center;
+}
+
+.column .speaker .position {
+	background-color: #eee;
+	font-size: 35px;
+	border-bottom: 0px;
+}
+
+.column .speaker .fullname {
+	background-color: #eee;
+	font-size: 25px;
+	padding: 0px 10px 20px 10px;
+}
+
+.column .speaker .session {
+	font-size: 25px;
+	min-height: 80px;
+}
+
+.column .speaker .calculations {
+	/* display: none; */
+	color: darkgrey;
+	font-size: 15px;
+	padding: 15px;
 }
 
 .speaker.first .position {
-    background-color: darkgoldenrod;
-    color: white;
+	background-color: var(--cUniversityOfCalGold);
+	color: white;
 }
 .speaker.first .fullname {
-    background-color: darkgoldenrod;
-    color: white;
+	background-color: var(--cUniversityOfCalGold);
+	color: white;
 }
 
 .speaker.second .position {
-    background-color: darkorchid;
-    color: white;
+	background-color: var(--TealBlue);
+	color: white;
 }
 .speaker.second .fullname {
-    background-color: darkorchid;
-    color: white;
+	background-color: var(--TealBlue);
+	color: white;
 }
 
 .speaker.third .position {
-    background-color: darkblue;
-    color: white;
+	background-color: var(--cDarkPurple);
+	color: white;
 }
 .speaker.third .fullname {
-    background-color: darkblue;
-    color: white;
+	background-color: var(--cDarkPurple);
+	color: white;
 }
 
 @media only screen and (max-width: 600px) {
-    .columns {
-        width: 100%;
-    }
+	.podium .column {
+		width: 100%;
+	}
 }
