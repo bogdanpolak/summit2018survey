@@ -71,16 +71,21 @@ section {
 
 .column .speaker {
 	list-style-type: none;
-	border: 1px solid #eee;
+	border: 1px solid #ccc;
 	margin: 0;
-	padding: 0;
+	padding: 2px;
 	-webkit-transition: 0.3s;
 	transition: 0.3s;
-}
-
-.column .speaker:hover {
 	box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
 }
+
+/*
+On mouse hover over speaker box
+.column .speaker:hover {
+	border: 1px solid rgb(124, 163, 177);
+	box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2)
+}
+*/
 
 .column .speaker li {
 	border-bottom: 1px solid #eee;
@@ -111,6 +116,7 @@ section {
 	color: darkgrey;
 	font-size: 15px;
 	padding: 15px;
+	border-bottom: 0px;
 }
 
 .speaker.first .position {
