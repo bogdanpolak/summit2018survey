@@ -163,7 +163,7 @@ function doAuthorize() {
 					SurveyData.company = obj.data.company;
 					toggleDisplaySection (sectionAuthorizID);  // hide login section 
 					toggleDisplaySection (sectionSurveyID);  // show survey section
-					generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
+					generateSurvey(sectionSurveyID, summitSessions.data);
 					updateSlotsWithResults ();
 					enableOnClick = true;
 					$('#btnAuth').toggleClass('btn-outline-secondary btn-primary');
@@ -193,7 +193,7 @@ $( document ).ready( function() {
 	/*
 	SurveyData.mockSurveyDateInitilize ();
 	toggleDisplaySection ('summit-survey');  // show survey section
-	generateSurvey(sectionSurveyID, SlotsDelphiDeveloperSummit2018);
+	generateSurvey(sectionSurveyID, summitSessions.data);
 	updateSlotsWithResults ();
 	*/
 });

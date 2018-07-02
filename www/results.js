@@ -5,7 +5,7 @@
  */
 function buildSessionList (lang,votings) {
 	let list = [];
-	SlotsDelphiDeveloperSummit2018.forEach( slot => {
+	summitSessions.data.forEach( slot => {
 		slot.sessions.forEach (session => {
 			const sessionid = slot.id+'-'+session.track;
 			if (session.lang === lang) {
