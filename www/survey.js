@@ -106,7 +106,7 @@ function addOnClickEvents () {
 		$(this).addClass("active");
 		const sessionRating = this.innerHTML;
 		const item = {slot:slotName,track:trackNo,rating:sessionRating};
-		AjaxHttpPost('http://delphi.pl/zlot/zlot2018/api/survey/'+SurveyData.serialCode,
+		AjaxHttpPost('http://delphi.pl/zlot/zlot2019/api/survey/'+SurveyData.serialCode,
 			item,
 			resp=>console.log(resp),
 			(status,resp)=>console.log(status,resp)
@@ -155,7 +155,7 @@ function doAuthorize() {
 			enableOnClick = false;
 			const sectionAuthorizID = 'login';
 			const sectionSurveyID = 'summit-survey'; 
-			AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/'+SurveyData.serialCode,
+			AjaxHttpGet ('http://delphi.pl/zlot/zlot2019/api/survey/'+SurveyData.serialCode,
 				obj=>{
 					SurveyData.data = obj.data.results;
 					SurveyData.firstName = obj.data.firstName;
