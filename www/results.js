@@ -1,15 +1,16 @@
 /*
- * votings: [ {sessionid:String, counter: Integer, 
- *             ratingsum: Integer, factor: Integer, 
- *             avgRating Number, finalRating: Number} ]
+ * votingResults: [ 
+ *    { sessionid:String,   counter: Integer, 
+ *      ratingsum: Integer,   factor: Integer, 
+ *      avgRating Number,   finalRating: Number } ]
  */
-function buildSessionList (lang,votings) {
+function buildSessionList (lang, votingResults) {
 	let list = [];
 	summitSessions.data.forEach( slot => {
 		slot.sessions.forEach (session => {
 			const sessionid = slot.id+'-'+session.track;
 			if (session.lang === lang) {
-				const row = votings.find( row => (row.sessionid === sessionid));
+				const row = votingResults.find( row => (row.sessionid === sessionid));
 				list.push({
 					id: sessionid, 
 					speaker: session.speaker, 
@@ -54,14 +55,13 @@ function generateHtmlVotingResults (sessions, title) {
 	return mainDiv;
 }
 
-function generateHtml (surveyDiv, jsonData) {
-	const votings = jsonData.results;
+function generateHtml (surveyDiv, votingResults) {
 	// ---
-	const sessionsPl = buildSessionList('pl', votings);
+	const sessionsPl = buildSessionList('pl', votingResults);
 	const div1 = generateHtmlVotingResults(sessionsPl, 'Wykładowcy polskiej społeczności' );
 	surveyDiv.appendChild(div1);
 	// ---
-	const sessionsEng = buildSessionList('eng', votings);
+	const sessionsEng = buildSessionList('eng', votingResults);
 	const div2 = generateHtmlVotingResults(sessionsEng, 'Zagraniczni zaproszeni wykładowcy' );
 	surveyDiv.appendChild(div2);
 }
@@ -69,10 +69,10 @@ function generateHtml (surveyDiv, jsonData) {
 function onDocumentReady() {
 	const surveyDiv = document.getElementById('survey-results');
 	surveyDiv.innerHTML = '<div class="text-center">Proszę czekać trwa ładowanie wyników głosowania ...</div>';
-	AjaxHttpGet ('http://delphi.pl/zlot/zlot2019/api/survey/',
-		obj=>{
+	summitAPI.getVotingResults (
+		votingResults => {
 			surveyDiv.innerHTML = '';
-			generateHtml (surveyDiv, obj.data)
+			generateHtml (surveyDiv, votingResults);
 		}, 
 		(status,responseText) => {
 			surveyDiv.innerHTML = '<div class="text-center">Błąd ładowania</div>';
