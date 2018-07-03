@@ -28,7 +28,6 @@ const SurveyData = {
 		return true;
 	}
 }
-var GlobalSerialCode;
 
 function generateSurveHeader (surveyDiv) {
 	const slotDiv = document.createElement('div');

@@ -69,7 +69,7 @@ function generateHtml (surveyDiv, jsonData) {
 function onDocumentReady() {
 	const surveyDiv = document.getElementById('survey-results');
 	surveyDiv.innerHTML = '<div class="text-center">Proszę czekać trwa ładowanie wyników głosowania ...</div>';
-	AjaxHttpGet ('http://delphi.pl/zlot/zlot2018/api/survey/',
+	AjaxHttpGet ('http://delphi.pl/zlot/zlot2019/api/survey/',
 		obj=>{
 			surveyDiv.innerHTML = '';
 			generateHtml (surveyDiv, obj.data)

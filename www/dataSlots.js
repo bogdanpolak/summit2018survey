@@ -1,10 +1,9 @@
-// SlotsDelphiDeveloperSummit2018
-// const summitSessions = new Sessions(2018);
-const summitSessions = new Sessions(2019);
+// const summitSessions = new Sessions("Delphi Summit 2018");
+const summitSessions = new Sessions("Delphi Summit 2019");
 
-function Sessions(year) {
-	if (year===2019) {
-		this.data = [{
+function Sessions(eventName) {
+	function sessionsData_DelphiSummit2019 () {
+		return [{
 			id:'cz1000', date:'2019-06-06T10:15+02:00', duration:90,
 			sessions: [
 				{track:0, lang:'eng', speaker:'Speaker Embarcadero', subject:'Keynote wednesday'}]
@@ -43,9 +42,10 @@ function Sessions(year) {
 			sessions: [
 				{track:1, lang:'eng', speaker:'Guest Seven', subject:'Session subject G'},
 				{track:2, lang:'pl', speaker:'Wykładowca Siódmy', subject:'Temat wykładu G'}]
-		}]
-	} else if (year===2018) {
-		this.data = [{
+		}];
+	};
+	function sessionsData_DelphiSummit2018 () {
+		return [{
 			id:'wt1030', date:'2018-06-19T10:00+02:00', duration:75,
 			sessions: [
 				{track:0, lang:'eng', speaker:'Marco Cantu', subject:'Delphi: Whats New and Whats Coming'}]
@@ -74,7 +74,13 @@ function Sessions(year) {
 			sessions: [
 				{track:1, lang:'eng', speaker:'Stefan Glienke', subject:'Software testing - DUnit, Mocks and TestInsight'},
 				{track:2, lang:'pl', speaker:'Mirosław Kardaś', subject:'Delphi dla elektronika'}]
-		}]
+		}];
+	};
+	// ---------------------------------------------
+	if (eventName==="Delphi Summit 2019") {
+		this.data = sessionsData_DelphiSummit2019();
+	} else if (eventName==="Delphi Summit 2018") {
+		this.data = sessionsData_DelphiSummit2018 ();
 	} else {
 		this.data = [];
 	}
