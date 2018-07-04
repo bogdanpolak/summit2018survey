@@ -43,9 +43,9 @@ const summitAPI = {
 
 summitAPI.fillMockData1_DelphiSummit2019 = function () {
 	this.votes.serialCode === '000-000';
-	this.firstName = 'Jan';
-	this.lastName = 'Kowalski';
-	this.company = 'Firma Jana';
+	this.votes.firstName = 'Jan';
+	this.votes.lastName = 'Kowalski';
+	this.votes.company = 'Firma Jana';
 	this.votes.data = [
 		{ "slot": "cz1000", "track": 0, "rating": 6 },
 		{ "slot": 'cz1200', "track": 1, "rating": 5 },
@@ -59,9 +59,9 @@ summitAPI.fillMockData1_DelphiSummit2019 = function () {
 };
 summitAPI.fillMockData2_DelphiSummit2019 = function () {
 	this.votes.serialCode === 'BBBBB-CCCCC';
-	this.firstName = 'Adam';
-	this.lastName = 'Adamski';
-	this.company = "Adam's Company Ltd.";
+	this.votes.firstName = 'Adam';
+	this.votes.lastName = 'Adamski';
+	this.votes.company = "Adam's Company Ltd.";
 	this.votes.data = [
 		{ "slot": "cz1000", "track": 0, "rating": 5 },
 		{ "slot": 'cz1200', "track": 2, "rating": 3 },

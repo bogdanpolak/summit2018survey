@@ -1,12 +1,12 @@
 const survey = {
-	mockVersion: 0,
+	mockVersion: 1,
 	htmlDivID: {
 		auth: 'login',
 		main: 'summit-survey',
 	}
 }
 
-function generateSurveHeader (surveyDiv) {
+function generateHtmlSurveHeader (surveyDiv) {
 	const slotDiv = document.createElement('div');
 	slotDiv.classList.add('row', 'survey-header');
 	// append h1 with participant first and last name
@@ -35,7 +35,7 @@ function generateSlotInfo (slot) {
 		{ hour: 'numeric', minute: 'numeric'}).format(dt2);
 	return slotInfoDiv;
 }
-function generateSlotSessions (slotID, session, columnStyle) {
+function generateHtmlSession (slotID, session, columnStyle) {
 	const sessionDiv = document.createElement('div');
 	sessionDiv.classList.add(columnStyle, 'session', 'text-center');
 	const SessionInfoPar = document.createElement('p');
@@ -49,14 +49,28 @@ function generateSlotSessions (slotID, session, columnStyle) {
 	btnGroupDiv.setAttribute('conference-track',session.track);
 	btnGroupDiv.setAttribute('role', 'group');
 	let html = '';
-	[1, 2, 3, 4, 5, 6].forEach( i =>
-		html += '<button type="button" class="btn btn-outline-primary">'+i+'</button>'
-	);
 	btnGroupDiv.innerHTML = html;
+	[1, 2, 3, 4, 5, 6].forEach( i => {
+		const btn = document.createElement('button');
+		btn.classList.add('btn', 'btn-outline-primary');
+		btn.type = 'button';
+		btn.innerHTML = i;
+		btnGroupDiv.appendChild (btn);
+		btn.onclick = function(){
+			// "this" equal clicked button HTML object
+			const btngroup = this.parentElement;
+			const slotName = btngroup.getAttribute("conference-slot");
+			const trackNo = btngroup.getAttribute("conference-track");
+			const sessionRating = this.innerHTML;
+			summitAPI.newVote (slotName, trackNo, sessionRating);
+			$('div[conference-slot="'+slotName+'"] > .btn').removeClass("active");
+			$(this).addClass("active");
+		};
+	});
 	sessionDiv.appendChild (btnGroupDiv);
 	return sessionDiv;
 }
-function generateSlot (surveyDiv, slot) {
+function generateHtmlConferenceSlot (surveyDiv, slot) {
 	if (typeof slot === 'undefined' || slot.sessions === 'undefined' || !slot.sessions.length) 
 		throw 'Incorrect slot structructure';
 	const slotDiv = document.createElement('div');
@@ -64,31 +78,21 @@ function generateSlot (surveyDiv, slot) {
 	const infoDiv = generateSlotInfo (slot);
 	slotDiv.appendChild (infoDiv);
 	if (slot.sessions.length === 1) {
-		const sessionDiv = generateSlotSessions(slot.id, slot.sessions[0],'col-md-10')
+		const sessionDiv = generateHtmlSession(slot.id, slot.sessions[0],'col-md-10')
 		slotDiv.appendChild (sessionDiv);
 	} else {
-		const session1Div = generateSlotSessions(slot.id, slot.sessions[0],'col-md-5');
-		const session2Div = generateSlotSessions(slot.id, slot.sessions[1],'col-md-5');
+		const session1Div = generateHtmlSession(slot.id, slot.sessions[0],'col-md-5');
+		const session2Div = generateHtmlSession(slot.id, slot.sessions[1],'col-md-5');
 		slotDiv.appendChild (session1Div);
 		slotDiv.appendChild (session2Div);
 	}
 	surveyDiv.appendChild(slotDiv);
 }
-function addOnClickEvents () {
-	$(".btn-group > .btn").click(function(){
-		const slotName = this.parentElement.getAttribute("conference-slot");
-		const trackNo = this.parentElement.getAttribute("conference-track");
-		$('div[conference-slot="'+slotName+'"] > .btn').removeClass("active");
-		$(this).addClass("active");
-		const sessionRating = this.innerHTML;
-		summitAPI.newVote (slotName, trackNo, sessionRating);
-	});
-}
 function generateHtmlSurvey (id, slots) {
 	const surveyDiv = document.getElementById(survey.htmlDivID.main);
-	generateSurveHeader(surveyDiv);
+	generateHtmlSurveHeader(surveyDiv);
 	summitSessions.data.forEach( slot =>  
-		generateSlot(surveyDiv, slot) );
+		generateHtmlConferenceSlot(surveyDiv, slot) );
 	addOnClickEvents();
 }
 
@@ -151,11 +155,13 @@ function doAuthorize() {
 $( document ).ready( function() {
 	if (survey.mockVersion === 1) {
 		summitAPI.fillMockData1_DelphiSummit2019 ();
+		toggleDisplaySection (survey.htmlDivID.auth);  // hide login section 
 		toggleDisplaySection ('summit-survey');  // show survey section
 		generateHtmlSurvey(survey.htmlDivID.main, summitSessions.data);
 		updateSlotsWithResults ();
 	} else if (survey.mockVersion === 2) {
 		summitAPI.fillMockData2_DelphiSummit2019 ();
+		toggleDisplaySection (survey.htmlDivID.auth);  // hide login section 
 		toggleDisplaySection ('summit-survey');  // show survey section
 		generateHtmlSurvey(survey.htmlDivID.main, summitSessions.data);
 		updateSlotsWithResults ();
