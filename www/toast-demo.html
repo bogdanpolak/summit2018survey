@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<style>
+		.toast-box {
+			visibility: hidden;
+			min-width: 50px;
+			background-color: #5d9;
+			color: rgb(50, 52, 25);
+			text-align: center;
+			border-radius: 4px;
+			padding: 10px 16px;
+			position: fixed;
+			z-index: 1;
+			right: 30px;
+			bottom: 30px;
+			font-size: 17px;
+		}
+
+		.toast-box.show {
+			visibility: visible;
+			opacity: 0.8;
+			-webkit-animation: toastFadein 0.7s, toastFadeout 0.5s 2.5s;
+			animation: toastFadein 0.7s, toastFadeout 0.5s 2.5s;
+		}
+
+		@-webkit-keyframes toastFadein {
+			from { opacity: 0; }
+			to { opacity: 0.8; }
+		}
+		@keyframes toastFadein {
+			from { opacity: 0; }
+			to { opacity: 0.8; }
+		}
+		@-webkit-keyframes toastFadeout {
+			from { opacity: 0.8; }
+			to { opacity: 0; }
+		}
+		@keyframes toastFadeout {
+			from { opacity: 0.8; }
+			to { opacity: 0; }
+		}
+	</style>
+</head>
+
+<body>
+
+	<h2>Toast</h2>
+	<p>Toasts are often used as a tooltips/popups to show a message at the bottom of the screen.</p>
+	<p>Click on the button to show the Toast. It will disappear after 3 seconds.</p>
+
+	<button style="padding: 10px 15px; border-radius: 6px;" onclick="ShowToast()">Show the Toast</button>
+
+	<script>
+		function getMessageText (nr) {
+			const messages = [
+				'Krótkie info', 'Hej', 'Cześć', 'Baj',
+				'Ala ma kota, a kot ma Alę', 'Wysłano ocenę do serwera'
+			];
+			if (nr<0 || nr>=messages.length) {
+					nr=messages.length-1
+			};
+			return messages[nr];
+		}
+		function ShowToast() {
+			const div = document.createElement('div');
+			const num = Math.floor(Math.random() * 20);
+			div.innerHTML = getMessageText(num) + " " + num;
+			div.classList.add("toast-box", "show");
+			document.body.appendChild(div);
+			setTimeout(function () { 
+				div.className = div.className.replace("show", "");
+				// TODO: delete element
+			}, 3000);
+		}
+	</script>
+
+</body>
+
+</html>
