@@ -1,48 +1,48 @@
 const summitAPI = {
-    apiSurveyUrl: "http://delphi.pl/zlot/zlot2019/api/survey/",
-    votes: {
+	apiSurveyUrl: "http://delphi.pl/zlot/zlot2019/api/survey/",
+	votes: {
 		serialCode: '',
 		firstName: '',
 		lastName: '',
-        company: '',
-        /* [{ "slot": String, "track": Number, "rating": Number }, ..] */
+		company: '',
+		/* [{ "slot": String, "track": Number, "rating": Number }, ..] */
 		data: [],
-    },
-    newVote: function  (slotName, trackNo, sessionRating) {
-        const item = {slot:slotName, track:trackNo, rating:sessionRating};
-        if (this.isMock) {
-            const message = 'newVote: slot='+item.slot+', track='+item.track+', rating='+item.rating;
-            console.log(message);
-        } else {
-            const url = this.apiSurveyUrl+this.votes.serialCode;
-            AjaxHttpPost( url, item,
-                resp=>console.log(resp),
-                (status,resp) => {
-                    console.log(status,resp);
-                }
-            );
-        }
-    },
-    getVotes: function (onSuccess, onFailure) {
-        const url = this.apiSurveyUrl+this.votes.serialCode;
-        AjaxHttpGet (url,
-            obj=>{
-                this.votes.data = obj.data.results;
-                this.votes.firstName = obj.data.firstName;
-                this.votes.lastName = obj.data.lastName;
-                this.votes.company = obj.data.company;
-                onSuccess ();
-            }, 
-            (status,responseText) => 
-                onFailure (status,responseText) );
-    },
-    getVotingResults: function (onSucces, onFailure) {
-        AjaxHttpGet (this.apiSurveyUrl,
-            obj => onSucces(obj.data.results),
-            (status,responseText) => onFailure(status,responseText)
-        );
+	},
+	newVote: function  (slotName, trackNo, sessionRating) {
+		const item = {slot:slotName, track:trackNo, rating:sessionRating};
+		if (this.isMock) {
+			const message = 'newVote: slot='+item.slot+', track='+item.track+', rating='+item.rating;
+			console.log(message);
+		} else {
+			const url = this.apiSurveyUrl+this.votes.serialCode;
+			AjaxHttpPost( url, item,
+				resp=>console.log(resp),
+				(status,resp) => {
+					console.log(status,resp);
+				}
+			);
+		}
+	},
+	getVotes: function (onSuccess, onFailure) {
+		const url = this.apiSurveyUrl+this.votes.serialCode;
+		AjaxHttpGet (url,
+			obj=>{
+				this.votes.data = obj.data.results;
+				this.votes.firstName = obj.data.firstName;
+				this.votes.lastName = obj.data.lastName;
+				this.votes.company = obj.data.company;
+				onSuccess ();
+			}, 
+			(status,responseText) => 
+				onFailure (status,responseText) );
+	},
+	getVotingResults: function (onSucces, onFailure) {
+		AjaxHttpGet (this.apiSurveyUrl,
+			obj => onSucces(obj.data.results),
+			(status,responseText) => onFailure(status,responseText)
+		);
 
-    }
+	}
 }
 
 summitAPI.fillMockData1_DelphiSummit2019 = function () {
