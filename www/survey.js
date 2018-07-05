@@ -93,7 +93,6 @@ function generateHtmlSurvey (id, slots) {
 	generateHtmlSurveHeader(surveyDiv);
 	summitSessions.data.forEach( slot =>  
 		generateHtmlConferenceSlot(surveyDiv, slot) );
-	addOnClickEvents();
 }
 
 function updateSlotsWithResults () {
