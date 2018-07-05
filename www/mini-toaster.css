@@ -1,0 +1,34 @@
+.toast-box {
+    visibility: visible;
+    opacity: 0.8;
+    min-width: 50px;
+    background-color: #5d9;
+    color: rgb(50, 52, 25);
+    text-align: center;
+    border-radius: 4px;
+    padding: 10px 16px;
+    position: fixed;
+    z-index: 1;
+    right: 30px;
+    bottom: 30px;
+    font-size: 17px;
+    -webkit-animation: toastFadein 0.7s, toastFadeout 0.5s 2.5s;
+    animation: toastFadein 0.7s, toastFadeout 0.5s 2.5s;
+}
+
+@-webkit-keyframes toastFadein {
+    from { opacity: 0; }
+    to { opacity: 0.8; }
+}
+@keyframes toastFadein {
+    from { opacity: 0; }
+    to { opacity: 0.8; }
+}
+@-webkit-keyframes toastFadeout {
+    from { opacity: 0.8; }
+    to { opacity: 0; }
+}
+@keyframes toastFadeout {
+    from { opacity: 0.8; }
+    to { opacity: 0; }
+}
