@@ -93,7 +93,6 @@ function generateHtmlSurvey (id, slots) {
 	generateHtmlSurveHeader(surveyDiv);
 	summitSessions.data.forEach( slot =>  
 		generateHtmlConferenceSlot(surveyDiv, slot) );
-	addOnClickEvents();
 }
 
 function updateSlotsWithResults () {
@@ -153,6 +152,7 @@ function doAuthorize() {
 }
 
 $( document ).ready( function() {
+	summitAPI.isMock = (survey.mockVersion > 0);
 	if (survey.mockVersion === 1) {
 		summitAPI.fillMockData1_DelphiSummit2019 ();
 		toggleDisplaySection (survey.htmlDivID.auth);  // hide login section 
