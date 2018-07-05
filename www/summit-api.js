@@ -8,15 +8,19 @@ const summitAPI = {
 		/* [{ "slot": String, "track": Number, "rating": Number }, ..] */
 		data: [],
 	},
-	newVote: function  (slotName, trackNo, sessionRating) {
-		const item = {slot:slotName, track:trackNo, rating:sessionRating};
+	/*
+	 * vote: {slot:String, track:Number, rating:Number}
+	 */
+	newVote: function  (vote, onSuccess) {
 		if (this.isMock) {
-			const message = 'newVote: slot='+item.slot+', track='+item.track+', rating='+item.rating;
+			const message = 'newVote: slot='+vote.slot+', track='+vote.track+', rating='+vote.rating;
 			console.log(message);
 		} else {
 			const url = this.apiSurveyUrl+this.votes.serialCode;
-			AjaxHttpPost( url, item,
-				resp=>console.log(resp),
+			AjaxHttpPost( url, vote,
+				resp => {
+					onSuccess(resp) 
+				},
 				(status,resp) => {
 					console.log(status,resp);
 				}
