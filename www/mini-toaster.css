@@ -9,7 +9,7 @@
     padding: 10px 16px;
     position: fixed;
     z-index: 1;
-    right: 30px;
+    right: 5px;
     bottom: 30px;
     font-size: 17px;
     -webkit-animation: toastFadein 0.7s, toastFadeout 0.5s 2.5s;

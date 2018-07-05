@@ -1,5 +1,6 @@
 const survey = {
 	mockVersion: 0,
+	developerMode: false,
 	htmlDivID: {
 		auth: 'login',
 		main: 'summit-survey',
@@ -64,7 +65,12 @@ function generateHtmlSession (slotID, session, columnStyle) {
 			const sessionRating = this.innerHTML;
 			const vote = {slot:slotName, track:trackNo, rating:sessionRating};
 			const onSuccess = function (httpResponse) {
-				console.log("http response",httpResponse,"vote",vote);
+				if (survey.developerMode) {
+					console.log("http response",httpResponse,"vote",vote);
+					addToast ("Głos na "+slotName+"-"+trackNo+" został przesłany");
+				} else {
+					addToast ("Głos został wysłany");
+				}
 			}
 			summitAPI.newVote (vote, onSuccess);
 			$('div[conference-slot="'+slotName+'"] > .btn').removeClass("active");
