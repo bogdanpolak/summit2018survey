@@ -10,14 +10,18 @@ const summitAPI = {
     },
     newVote: function  (slotName, trackNo, sessionRating) {
         const item = {slot:slotName, track:trackNo, rating:sessionRating};
-        const url = this.apiSurveyUrl+this.votes.serialCode;
-        AjaxHttpPost( url, item,
-            resp=>console.log(resp),
-            (status,resp) => {
-                console.log(status,resp);
-            }
-        );
-        // console.log('slot='+item.slot+', track='+item.track+', rating='+item.rating);
+        if (this.isMock) {
+            const message = 'newVote: slot='+item.slot+', track='+item.track+', rating='+item.rating;
+            console.log(message);
+        } else {
+            const url = this.apiSurveyUrl+this.votes.serialCode;
+            AjaxHttpPost( url, item,
+                resp=>console.log(resp),
+                (status,resp) => {
+                    console.log(status,resp);
+                }
+            );
+        }
     },
     getVotes: function (onSuccess, onFailure) {
         const url = this.apiSurveyUrl+this.votes.serialCode;
