@@ -1,5 +1,5 @@
 const survey = {
-	mockVersion: 1,
+	mockVersion: 0,
 	htmlDivID: {
 		auth: 'login',
 		main: 'summit-survey',
@@ -62,7 +62,11 @@ function generateHtmlSession (slotID, session, columnStyle) {
 			const slotName = btngroup.getAttribute("conference-slot");
 			const trackNo = btngroup.getAttribute("conference-track");
 			const sessionRating = this.innerHTML;
-			summitAPI.newVote (slotName, trackNo, sessionRating);
+			const vote = {slot:slotName, track:trackNo, rating:sessionRating};
+			const onSuccess = function (httpResponse) {
+				console.log("http response",httpResponse,"vote",vote);
+			}
+			summitAPI.newVote (vote, onSuccess);
 			$('div[conference-slot="'+slotName+'"] > .btn').removeClass("active");
 			$(this).addClass("active");
 		};
