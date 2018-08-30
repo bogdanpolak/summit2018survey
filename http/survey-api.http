@@ -7,18 +7,24 @@ GET http://delphi.pl/zlot/zlot2019/api/survey/12345-12345
 ### Participant 67890-67890 Votes
 GET http://delphi.pl/zlot/zlot2019/api/survey/67890-67890
 
-### Update / Insert session wt1030 rating
+# Correct slots for Summit 2019
+# cz1000,cz1200,cz1330,cz1600,cz1730,pt1000,pt1130,pt1300
+#
+### Update / Insert session cz1000 rating
 POST http://delphi.pl/zlot/zlot2019/api/survey/12345-12345 HTTP/1.1
 content-type: application/json
 
-{ "slot": "wt1030", "track": 0, "rating": 6 }
+{ "slot": "cz1000", "track": 0, "rating": 6 }
 
-### Update / Insert session wt1215 rating
+### Update / Insert session cz1330 rating
 POST http://delphi.pl/zlot/zlot2019/api/survey/12345-12345 HTTP/1.1
 content-type: application/json
 
-{ "slot": "wt1215", "track": 2, "rating": 1 }
+{ "slot": "cz1330", "track": 2, "rating": 1 }
 
+# ------------------------------------------------------------
+# Negative tests
+#
 ### Invalid authorization in GET
 GET http://delphi.pl/zlot/zlot2019/api/survey/999-999
 
@@ -29,14 +35,13 @@ content-type: application/json
 {"slot": "wt1030", "track": 0, "rating": 6}
 
 ### Invalid session (slot, track) in POST 
-# slots: wt1030 wt1215 wt1445 sr1000 sr1130 sr1300
-POST http://delphi.pl/zlot/zlot2018/api/survey/12345-12345 HTTP/1.1
+POST http://delphi.pl/zlot/zlot2019/api/survey/12345-12345 HTTP/1.1
 content-type: application/json
 
-{"slot": "wt1300", "track": 2, "rating": 7}
+{"slot": "pn0500", "track": 2, "rating": 7}
 
 ### Invalid session (slot, track) in POST 
 POST http://delphi.pl/zlot/zlot2019/api/survey/12345-12345 HTTP/1.1
 content-type: application/json
 
-{"slot": "sr0900", "track": 1, "rating": 1}
+{"slot": "pn0500", "track": 1, "rating": 1}
