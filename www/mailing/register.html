@@ -68,25 +68,8 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
-	<script src="../light-ajax-http.js?ts=20180622T1634"></script>
-
-    <script type="text/javascript">
-        function validateEmail(email) {
-            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-            return re.test(email);
-        }
-        
-        function clickMailingListSubmit() {
-            enteredEmail = $('#inputEmail').val();
-            $('.span-email-addr').html(enteredEmail);
-            isValid = validateEmail(enteredEmail);
-            if (isValid) {
-                $('#modalMailingRegistred').modal();
-            } else {
-                $('#modalInvalidEmail').modal();
-            }
-        }
-    </script>
+<script src="../light-ajax-http.js?ts=20180622T1634"></script>
+<script src="./register.js?ts=20180831T1755"></script>
         
 </body>
 </html>
