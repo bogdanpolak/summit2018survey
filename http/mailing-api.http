@@ -1,0 +1,5 @@
+### Mailing Register email
+PUT http://delphi.pl/zlot/zlot2019/api/mailing/bogdan.polak@wp.pl
+
+### Mailing Unregister email
+DELETE http://delphi.pl/zlot/zlot2019/api/mailing/bogdan.polak@wp.pl
