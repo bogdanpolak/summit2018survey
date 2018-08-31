@@ -1,0 +1,92 @@
+<html>
+<head>
+	<meta http-equiv="Content-type" content="text/html; charset=utf-8" />
+	<title>Zlot Programistów Delphi - materiały</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">	
+</head>
+<body>
+<section class="container summit-summary">
+	<div class="row">
+		<div class="col-md-8">
+			<h5 class="column-title">Bądź na bieżąco</h5>
+			<p>Jeśli chcesz otrzymywać wiadomości podaj nam swój adres:</p>
+			<div class="row">
+				<div class="col-md-8 mt-1">
+					<input class="form-control" id="inputEmail" placeholder="wpisz tutaj adres email">
+				</div>
+				<div class="col-md-4 mt-1">
+					<button type="submit" class="btn btn-primary btn-block" onclick="clickMailingListSubmit();">Zarejestruj się</button>
+				</div>
+			</div>
+			<p class="mt-4 text-muted font-italic"><small>W ramach rejestracji będziesz otrzymywał wiadomości związane ze społecznością programistów Delphi oraz warsztatami, szkoleniami i konferencjami orgaizowanymi przez BSC Polska</small></p>
+		</div>
+	</div>
+</section>
+
+<!-- Modal: Registration confimation -->
+<div class="modal fade" id="modalMailingRegistred" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="exampleModalLongTitle">Rejestracja do listy mailingowej</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				Wprowadziłeś adres email: <span class="span-email-addr"></span>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn btn-primary" data-dismiss="modal">Zamknij</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- Modal: Invalid email -->
+<div class="modal fade" id="modalInvalidEmail" tabindex="-1" role="dialog" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-content">
+			<div class="modal-header alert alert-danger">
+				<h5 class="modal-title" id="exampleModalLongTitle">Błąd</h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body text-danger">
+				Wprowadziłeś niepoprawny adres email: "<span class="span-email-addr"></span>". Proszę popraw adres i spróbuj jeszcze raz.
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn btn-primary" data-dismiss="modal">Zamknij</button>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js" integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E=" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js" integrity="sha384-pjaaA8dDz/5BgdFUPX6M/9SUZv4d12SUPF0axWc+VRZkx5xU3daN+lYb49+Ax+Tl" crossorigin="anonymous"></script>
+	<script src="../light-ajax-http.js?ts=20180622T1634"></script>
+
+    <script type="text/javascript">
+        function validateEmail(email) {
+            var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+            return re.test(email);
+        }
+        
+        function clickMailingListSubmit() {
+            enteredEmail = $('#inputEmail').val();
+            $('.span-email-addr').html(enteredEmail);
+            isValid = validateEmail(enteredEmail);
+            if (isValid) {
+                $('#modalMailingRegistred').modal();
+            } else {
+                $('#modalInvalidEmail').modal();
+            }
+        }
+    </script>
+        
+</body>
+</html>
