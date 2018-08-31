@@ -1,5 +1,16 @@
 ### Mailing Register email
-PUT http://delphi.pl/zlot/zlot2019/api/mailing/bogdan.polak@wp.pl
+PUT http://delphi.pl/zlot/zlot2019/api/mailing/
+content-type: application/json
+
+{ "email": "bogdan.polak@wp.pl", "firstname": "Bogdan", "lastname": "Polak", "company": "" }
 
 ### Mailing Unregister email
-DELETE http://delphi.pl/zlot/zlot2019/api/mailing/bogdan.polak@wp.pl
+DELETE http://delphi.pl/zlot/zlot2019/api/mailing/
+
+bogdan.polak@wp.pl
+
+### Mailing Confirm email
+PUT http://delphi.pl/zlot/zlot2019/api/mailing/confirmation/
+
+bogdan.polak@wp.pl
+
