@@ -5,12 +5,13 @@ content-type: application/json
 { "email": "bogdan.polak@wp.pl", "firstname": "Bogdan", "lastname": "Polak", "company": "" }
 
 ### Mailing Unregister email
-DELETE http://delphi.pl/zlot/zlot2019/api/mailing/
+DELETE http://delphi.pl/zlot/zlot2019/api/mailing/ HTTP/1.1
+content-type: application/json
 
-bogdan.polak@wp.pl
+{ "email": "bogdan.polak@wp.pl" }
 
 ### Mailing Confirm email
-PUT http://delphi.pl/zlot/zlot2019/api/mailing/confirmation/
+PUT http://delphi.pl/zlot/zlot2019/api/mailing/confirmation/ HTTP/1.1
+content-type: application/json
 
-bogdan.polak@wp.pl
-
+{ "email": "bogdan.polak@wp.pl" }
