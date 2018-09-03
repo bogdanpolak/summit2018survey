@@ -1,17 +1,36 @@
 ### Mailing Register email
-PUT http://delphi.pl/zlot/zlot2019/api/mailing/
+PUT {{summit2019API}}/mailing/ HTTP/1.1
 content-type: application/json
 
-{ "email": "bogdan.polak@wp.pl", "firstname": "Bogdan", "lastname": "Polak", "company": "" }
+{ 
+    "token": "*Demo%Insert%Token*",
+    "email": "krzysztof.kowalski@gmail.com", 
+    "firstname": "Krzysztof", 
+    "lastname": "Kowalski", 
+    "company": "" 
+}
 
 ### Mailing Unregister email
-DELETE http://delphi.pl/zlot/zlot2019/api/mailing/ HTTP/1.1
+DELETE {{summit2019API}}/mailing/ HTTP/1.1
 content-type: application/json
 
-{ "email": "bogdan.polak@wp.pl" }
+{  
+    "token": "*Demo%UnReg%Token*", 
+    "email": "bogdan.polak@wp.pl" 
+}
 
 ### Mailing Confirm email
-PUT http://delphi.pl/zlot/zlot2019/api/mailing/confirmation/ HTTP/1.1
+GET {{summit2019API}}/mailing/confirmation/hashA01
+
+# ------------------------------------------------------------
+# Negative tests
+#
+### Invalid authorization in PUT
+PUT {{summit2019API}}/mailing/
 content-type: application/json
 
-{ "email": "bogdan.polak@wp.pl" }
+{ 
+    "token": "*Demo%Bad%Token*",
+    "email": "bogdan.polak@wp.pl"
+}
+
