@@ -1,4 +1,4 @@
-@summit2019API = http://delphi.pl/zlot/zlot2019/api/test
+@summit2019API = https://delphi.pl/zlot/zlot2019/api/test
 
 ### Mailing Confirm email
 GET {{summit2019API}}/cfp/
@@ -21,13 +21,19 @@ content-type: application/json
 
 # ------------------------------------------------------------
 # Negative tests
-#
-### Invalid authorization in PUT
-PUT {{summit2019API}}/mailing/
+# ------------------------------------------------------------
+
+### Invalid email
+PUT {{summit2019API}}/cfp/
 content-type: application/json
 
 { 
-    "token": "*Demo%Bad%Token*",
-    "email": "bogdan.polak@wp.pl"
+    "presenter": "Jan", 
+    "company": "M", 
+    "email": "mr", 
+    "phone": "2", 
+    "bio": "Ogólnie", 
+    "title": "Nadciąga", 
+    "description": "Prowadzący", 
 }
 
