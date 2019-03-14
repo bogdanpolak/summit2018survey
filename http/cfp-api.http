@@ -1,0 +1,33 @@
+@summit2019API = http://delphi.pl/zlot/zlot2019/api/test
+
+### Mailing Confirm email
+GET {{summit2019API}}/cfp/
+
+
+### Mailing Register email
+PUT {{summit2019API}}/cfp/ HTTP/1.1
+content-type: application/json
+
+{
+    "presenter": "Jan Atkinson", 
+    "company": "Mr", 
+    "email": "mr@bean.pl", 
+    "phone": "222", 
+    "bio": "Ogólnie znany jako ...", 
+    "title": "Nadciąga totalny kataklizm", 
+    "description": "Prowadzący w zabawny sposób przedstawi jak skutecznie ...", 
+    "additional": "Opowiem jak naprawiać zniszczone obrazy ..." 
+}
+
+# ------------------------------------------------------------
+# Negative tests
+#
+### Invalid authorization in PUT
+PUT {{summit2019API}}/mailing/
+content-type: application/json
+
+{ 
+    "token": "*Demo%Bad%Token*",
+    "email": "bogdan.polak@wp.pl"
+}
+
