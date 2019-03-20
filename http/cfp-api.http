@@ -1,11 +1,14 @@
-@summit2019API = https://delphi.pl/zlot/zlot2019/api/test
+
+@s2019ProductionAPI = https://delphi.pl/zlot/zlot2019/api
+@s2019TestAPI = https://delphi.pl/zlot/zlot2019/api/test
+@summitAPI = {{s2019TestAPI}}
 
 ### Mailing Confirm email
-GET {{summit2019API}}/cfp/
+GET {{summitAPI}}/cfp/
 
 
 ### Mailing Register email
-PUT {{summit2019API}}/cfp/ HTTP/1.1
+PUT {{summitAPI}}/cfp/ HTTP/1.1
 content-type: application/json
 
 {
@@ -19,12 +22,29 @@ content-type: application/json
     "additional": "Opowiem jak naprawiać zniszczone obrazy ..." 
 }
 
+### Send email notyfications to request (hash) 
+GET {{summitAPI}}/notify/31c13e303003
+
 # ------------------------------------------------------------
 # Negative tests
 # ------------------------------------------------------------
 
+### Empty data 
+PUT {{summitAPI}}/cfp/ HTTP/1.1
+content-type: application/json
+
+{ 
+    "presenter":"",
+    "company":"", 
+    "email":"",
+    "phone":"",
+    "bio":"",
+    "title":"",
+    "description":""
+}
+
 ### Invalid email
-PUT {{summit2019API}}/cfp/
+PUT {{summitAPI}}/cfp/
 content-type: application/json
 
 { 
@@ -34,6 +54,15 @@ content-type: application/json
     "phone": "2", 
     "bio": "Ogólnie", 
     "title": "Nadciąga", 
-    "description": "Prowadzący", 
+    "description": "Prowadzący"
 }
 
+### Empty data 
+PUT {{summitAPI}}/cfp/ HTTP/1.1
+content-type: application/json
+
+{ 
+    "presenter": "Imię Nazwisko",
+    "company": "ABC", 
+    "email": "imie@test.pl"
+}
