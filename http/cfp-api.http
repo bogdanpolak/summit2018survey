@@ -1,14 +1,14 @@
 
-@s2019ProductionAPI = https://delphi.pl/zlot/zlot2019/api
-@s2019TestAPI = https://delphi.pl/zlot/zlot2019/api/test
-@summitAPI = {{s2019TestAPI}}
+@Production_Summit2019API = https://delphi.pl/zlot/zlot2019/api
+@Test_Summit2019API = https://delphi.pl/zlot/zlot2019/api/test
+@cfpAPI = {{Test_Summit2019API}}/cfp
 
 ### Mailing Confirm email
-GET {{summitAPI}}/cfp/
+GET {{cfpAPI}}/
 
 
 ### Mailing Register email
-PUT {{summitAPI}}/cfp/ HTTP/1.1
+PUT {{cfpAPI}}/cfp/ HTTP/1.1
 content-type: application/json
 
 {
@@ -23,14 +23,14 @@ content-type: application/json
 }
 
 ### Send email notyfications to request (hash) 
-GET {{summitAPI}}/notify/31c13e303003
+GET {{cfpAPI}}/notify/31c13e303003
 
 # ------------------------------------------------------------
 # Negative tests
 # ------------------------------------------------------------
 
 ### Empty data 
-PUT {{summitAPI}}/cfp/ HTTP/1.1
+PUT {{cfpAPI}}/cfp/ HTTP/1.1
 content-type: application/json
 
 { 
@@ -44,7 +44,7 @@ content-type: application/json
 }
 
 ### Invalid email
-PUT {{summitAPI}}/cfp/
+PUT {{cfpAPI}}/cfp/
 content-type: application/json
 
 { 
@@ -58,7 +58,7 @@ content-type: application/json
 }
 
 ### Empty data 
-PUT {{summitAPI}}/cfp/ HTTP/1.1
+PUT {{cfpAPI}}/cfp/ HTTP/1.1
 content-type: application/json
 
 { 
