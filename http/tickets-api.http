@@ -1,0 +1,25 @@
+@Production_Summit2019API = https://delphi.pl/zlot/zlot2019/api
+@summitAPI = {{Production_Summit2019API}}
+@ticketsAPI = {{summitAPI}}/ticket
+
+###
+GET {{ticketsAPI}}/
+
+
+###
+PUT {{ticketsAPI}}/ HTTP/1.1
+content-type: application/json
+
+{
+    "fullname": "Aaaa", 
+    "company": "Baaa",
+    "position": "Cccc Ddddd",
+    "email": "eee@fff.pl", 
+    "phone": "000000000", 
+    "tickets": "1", 
+    "price": "560", 
+    "address": "Ggggg Hhhhh 78/9", 
+    "postalcode": "12-345", 
+    "city": "Kraków",
+    "nip": "678-90-12-345"
+}
