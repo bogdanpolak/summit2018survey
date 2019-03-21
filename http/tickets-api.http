@@ -1,0 +1,77 @@
+@Production_Summit2019API = https://delphi.pl/zlot/zlot2019/api
+@summitAPI = {{Production_Summit2019API}}
+@ticketsAPI = {{summitAPI}}/ticket
+
+###
+GET {{ticketsAPI}}/
+
+
+###
+PUT {{ticketsAPI}}/ HTTP/1.1
+content-type: application/json
+
+{
+    "fullname": "Aaaa", 
+    "company": "Baaa",
+    "position": "Cccc Ddddd",
+    "email": "eee@fff.pl", 
+    "phone": "000000000", 
+    "tickets": "1", 
+    "price": "560", 
+    "address": "Ggggg Hhhhh 78/9", 
+    "postalcode": "12-345", 
+    "city": "Kraków",
+    "nip": "678-90-12-345"
+}
+
+// --------------------------------------------------------
+// Negative tests
+// --------------------------------------------------------
+
+### No required fields
+PUT {{ticketsAPI}}/ HTTP/1.1
+content-type: application/json
+
+{
+    "fullname": "Aaaa", 
+    "company": "Baaa",
+    "email": "eee@fff.pl",
+    "nip": "525-15-35-592"
+}
+
+### Invalid email
+PUT {{ticketsAPI}}/ HTTP/1.1
+content-type: application/json
+
+{
+    "fullname": "a", 
+    "company": "b",
+    "position": "c",
+    "email": "d", 
+    "phone": "0", 
+    "tickets": "1", 
+    "price": "5", 
+    "address": "G", 
+    "postalcode": "1", 
+    "city": "K",
+    "nip": "6"
+}
+
+### Invalid ticket price
+PUT {{ticketsAPI}}/ HTTP/1.1
+content-type: application/json
+
+{
+    "fullname": "Aaaa", 
+    "company": "Baaa",
+    "position": "Cccc Ddddd",
+    "email": "eee@fff.pl", 
+    "phone": "000000000", 
+    "tickets": "-", 
+    "price": "---", 
+    "address": "Ggggg Hhhhh 78/9", 
+    "postalcode": "12-345", 
+    "city": "Kraków",
+    "nip": "678-90-12-345"
+}
+

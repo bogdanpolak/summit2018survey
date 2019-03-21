@@ -1,0 +1,68 @@
+
+@Production_Summit2019API = https://delphi.pl/zlot/zlot2019/api
+@Test_Summit2019API = https://delphi.pl/zlot/zlot2019/api/test
+@cfpAPI = {{Test_Summit2019API}}/cfp
+
+### Mailing Confirm email
+GET {{cfpAPI}}/
+
+
+### Mailing Register email
+PUT {{cfpAPI}}/cfp/ HTTP/1.1
+content-type: application/json
+
+{
+    "presenter": "Jan Atkinson", 
+    "company": "Mr", 
+    "email": "mr@bean.pl", 
+    "phone": "222", 
+    "bio": "Ogólnie znany jako ...", 
+    "title": "Nadciąga totalny kataklizm", 
+    "description": "Prowadzący w zabawny sposób przedstawi jak skutecznie ...", 
+    "additional": "Opowiem jak naprawiać zniszczone obrazy ..." 
+}
+
+### Send email notyfications to request (hash) 
+GET {{cfpAPI}}/notify/31c13e303003
+
+# ------------------------------------------------------------
+# Negative tests
+# ------------------------------------------------------------
+
+### Empty data 
+PUT {{cfpAPI}}/cfp/ HTTP/1.1
+content-type: application/json
+
+{ 
+    "presenter":"",
+    "company":"", 
+    "email":"",
+    "phone":"",
+    "bio":"",
+    "title":"",
+    "description":""
+}
+
+### Invalid email
+PUT {{cfpAPI}}/cfp/
+content-type: application/json
+
+{ 
+    "presenter": "Jan", 
+    "company": "M", 
+    "email": "mr", 
+    "phone": "2", 
+    "bio": "Ogólnie", 
+    "title": "Nadciąga", 
+    "description": "Prowadzący"
+}
+
+### Empty data 
+PUT {{cfpAPI}}/cfp/ HTTP/1.1
+content-type: application/json
+
+{ 
+    "presenter": "Imię Nazwisko",
+    "company": "ABC", 
+    "email": "imie@test.pl"
+}
