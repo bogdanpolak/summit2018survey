@@ -2,9 +2,14 @@
 @summitAPI = {{Production_Summit2019API}}
 @ticketsAPI = {{summitAPI}}/ticket
 
-###
+### Get
 GET {{ticketsAPI}}/
 
+### Get One: BPO-hash-99
+GET {{ticketsAPI}}/BPO-hash-99
+
+### Send registration notification
+GET {{ticketsAPI}}/notify/BPO-hash-99
 
 ###
 PUT {{ticketsAPI}}/ HTTP/1.1
