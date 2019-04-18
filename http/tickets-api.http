@@ -2,6 +2,9 @@
 @summitAPI = {{Production_Summit2019API}}
 @ticketsAPI = {{summitAPI}}/ticket
 
+### REST Server router test
+GET {{summitAPI}}/router-test/abc/1?a=fadc10293847aa00bbdd
+
 ### Get
 GET {{ticketsAPI}}/
 
