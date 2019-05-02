@@ -1,7 +1,7 @@
 
 @Production_Summit2019API = https://delphi.pl/zlot/zlot2019/api
 @Test_Summit2019API = https://delphi.pl/zlot/zlot2019/api/test
-@cfpAPI = {{Test_Summit2019API}}/cfp
+@cfpAPI = {{Production_Summit2019API}}/cfp
 
 ### Mailing Confirm email
 GET {{cfpAPI}}/

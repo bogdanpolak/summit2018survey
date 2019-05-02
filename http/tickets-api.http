@@ -2,9 +2,17 @@
 @summitAPI = {{Production_Summit2019API}}
 @ticketsAPI = {{summitAPI}}/ticket
 
-###
+### REST Server router test
+GET {{summitAPI}}/router-test/abc/1?a=fadc10293847aa00bbdd
+
+### Get
 GET {{ticketsAPI}}/
 
+### Get One: BPO-hash-99
+GET {{ticketsAPI}}/BPO-hash-99
+
+### Send registration notification
+GET {{ticketsAPI}}/notify/BPO-hash-99
 
 ###
 PUT {{ticketsAPI}}/ HTTP/1.1
